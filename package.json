@@ -8,10 +8,14 @@
     "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:migration:generate": "npx prisma generate &&  prisma migrate dev",
-    "dev": "nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts"
+    "dev": "nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts",
+    "dev:seed":"prisma db seed"
   },
   "keywords": [],
-  "author": "",
+  "author": "Victor Marzo",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }, 
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

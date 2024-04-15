@@ -32,7 +32,8 @@ function getTotal (transactionList:NewTransaction[]){
 
 export async function newTransaction (transaction:NewTransaction){
     const newT = await transactionRepository.newTransaction(transaction);
-    return (newT);
+    console.log(newT)
+    //return (newT);
 }
 
 export async function filterTransactions(userId:number,month:string) {
@@ -52,11 +53,18 @@ export async function editTransaction(body:UpdateTransaction) {
     const updateT = await transactionRepository.updateTransaction(body);
     return (updateT);
 }
+
+
+export async function deleteTransaction(userId:number, id:number){
+    const deleteT = await transactionRepository.removeTransaction(userId,id)
+    return (deleteT);
+}
+
 const transactionService ={
     getTransactions,
     newTransaction,
     filterTransactions,
-    editTransaction
+    editTransaction,
+    deleteTransaction
 }
-
 export default transactionService;

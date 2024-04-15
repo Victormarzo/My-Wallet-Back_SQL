@@ -34,5 +34,5 @@ model Transaction{
   User      User     @relation(fields: [userId], references: [id])
   amount    Int
   operation String   @db.VarChar(10)
-
+  date      String   @db.VarChar(10)
 }

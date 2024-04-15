@@ -6,6 +6,9 @@ async function getTransactions(userId:number) {
         where:{ 
             userId
         }
+        ,orderBy:{
+            date:'desc'
+        }
     })
 }
 
@@ -16,13 +19,16 @@ async function newTransaction(data:NewTransaction) {
 }
 
 async function filterTransaction(userId:number,newYear:string,newMonth:string) {
-    return await prisma.$queryRaw`
-        SELECT * 
-        FROM "Transaction" 
-        WHERE EXTRACT(YEAR FROM "createdAt")=${Number(newYear)}
-        AND EXTRACT(MONTH FROM "createdAt")=${Number(newMonth)}
-        AND "userId" = ${Number(userId)}
-    `
+    return await prisma.transaction.findMany({
+        where:{
+            date:{
+                startsWith:`${newYear}-${newMonth}`
+            },
+            userId
+        },orderBy:{
+            date:'desc'
+        }
+    })
 }
 
 async function updateTransaction(data:UpdateTransaction){
@@ -33,14 +39,26 @@ async function updateTransaction(data:UpdateTransaction){
         },
         data:{
             amount:data.amount,
-            description:data.description
+            description:data.description,
+            date:data.date
         }
     })
 }
+
+async function removeTransaction(userId:number, id:number){
+    return await prisma.transaction.delete({
+        where:{
+            userId,
+            id
+        }
+    })
+}
+
 const transactionRepository = {
     getTransactions,
     newTransaction,
     filterTransaction,
-    updateTransaction
+    updateTransaction,
+    removeTransaction
 }
 export default transactionRepository;

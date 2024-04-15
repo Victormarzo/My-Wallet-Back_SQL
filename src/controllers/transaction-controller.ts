@@ -14,8 +14,8 @@ export async function getAllTransactions(req:Request, res:Response) {
 
 export async function newTransaction(req:Request, res:Response){
     const {userId}=res.locals
-    const {operation,amount,description}= req.body
-    const body = {operation,amount,description, userId }
+    const {operation,amount,description,date}= req.body
+    const body = {operation,amount,description, userId,date }
     try{
         await transactionService.newTransaction(body); 
         return res.sendStatus(httpStatus.CREATED);
@@ -44,4 +44,15 @@ export async function putTransaction(req:Request, res:Response) {
         return res.sendStatus(httpStatus.BAD_REQUEST)
     }
     
+}
+
+export async function deleteTransaction(req:Request, res:Response){
+    const id=req.params.id;
+    const {userId}= res.locals
+    try {
+        await transactionService.deleteTransaction(Number(userId),Number(id))
+        return res.sendStatus(httpStatus.OK)
+    } catch (error) {
+        return res.sendStatus(httpStatus.BAD_REQUEST)
+    }
 }
