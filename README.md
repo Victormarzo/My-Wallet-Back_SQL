@@ -1,8 +1,8 @@
 # My Wallet - backend
-Front-end for My Wallet, an individual expenses control solution
+Back-end for My Wallet, an individual expenses control solution
 
 ## About
-My wallet is a web browser application that you can use to control your expenses and check your monthly balance
+My wallet is a web browser application, best suited for mobile query, that you can use to control your expenses and check your monthly balance
 ### How to run for development
 
 1. Clone this repository
