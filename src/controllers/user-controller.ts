@@ -8,7 +8,8 @@ export async function createUser (req:Request, res:Response){
         const user = await userService.createUser({email,password,name})
         return res.status(httpStatus.CREATED).send({id:user.id,email:user.email})
     } catch (error) {
-        return res.sendStatus(httpStatus.CONFLICT)
+        console.log("EPPPPPPA",error)
+        return res.send(error)
     }
 }
 
